@@ -4,3 +4,6 @@ GET {{OneReactApp.Server_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{OneReactApp.Server_HostAddress}}/homeprop/
+Accept:application/json

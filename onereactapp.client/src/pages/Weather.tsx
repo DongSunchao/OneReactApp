@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
+
 interface Forecast {
     date: string;
     temperatureC: number;
@@ -8,6 +9,7 @@ interface Forecast {
 }
 
 function Weather() {
+
     const [forecasts, setForecasts] = useState<Forecast[]>();
 
     useEffect(() => {
@@ -15,7 +17,7 @@ function Weather() {
     }, []);
 
     const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
+        ? <p><em>Loading</em></p>
         : <table className="table table-striped" aria-labelledby="tableLabel">
             <thead>
                 <tr>
@@ -46,8 +48,10 @@ function Weather() {
     );
 
     async function populateWeatherData() {
+ 
         const response = await fetch('weatherforecast');
         if (response.ok) {
+
             const data = await response.json();
             setForecasts(data);
         }

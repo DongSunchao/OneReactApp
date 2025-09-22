@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 
 interface HomeProp{
-    username: string;
+    userName: string;
     userId: number;
-    UserState: string; // Assuming
+    userState: string; 
 }
 
 function Home() {
-    const [homeState, setHomeState] = React.useState<HomeProp[]>();
+    const [homeState, setHomeState] = useState<HomeProp[]>();
 
     useEffect(() => {
         LoadHomeData();
@@ -19,17 +19,17 @@ function Home() {
         : <table className="table table-striped" aria-labelledby="tableLabel">
             <thead>
                 <tr>
-                    <th>Username</th>
+                    <th>UserName</th>
                     <th>UserId</th>
                     <th>UserState</th>
                 </tr>
             </thead>
             <tbody>
-                {homeState.map(home =>
-                    <tr key={home.userId}>
-                        <td>{home.username}</td>
-                        <td>{home.userId}</td>
-                        <td>{home.UserState}</td>
+                {homeState.map(homeprop =>
+                    <tr key={homeprop.userId}>
+                        <td>{homeprop.userName}</td>
+                        <td>{homeprop.userId}</td>
+                        <td>{homeprop.userState}</td>
                     </tr>
                 )}
             </tbody>
@@ -44,7 +44,7 @@ function Home() {
     );
 
     async function LoadHomeData() {
-        const response = await fetch('home');
+        const response = await fetch('https://localhost:7170/homeprop');
         if (response.ok) {
             const data = await response.json();
             setHomeState(data);

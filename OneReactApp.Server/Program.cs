@@ -14,6 +14,19 @@ namespace OneReactApp.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("https://localhost:64001")//for home page
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                                  });
+            });//add CORS policy
+
             var app = builder.Build();
 
             app.UseDefaultFiles();
@@ -27,6 +40,8 @@ namespace OneReactApp.Server
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
